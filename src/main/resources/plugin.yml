@@ -1,0 +1,32 @@
+name: UnboundCombat
+version: 1.0.1
+main: net.havengarde.unbound.combat.UnboundCombat
+api-version: 1.16
+prefix: UnboundCombat
+depend: [ Aureycore, MagicksAPI ]
+authors: [ hayachikin, AureanAutumn ]
+description: Combat system for the Unbound plugin pack for Havengarde
+website: unbound.havengarde.net
+usage: &usage "\u00A7cWrong syntax. Use /<command> help to show proper usage."
+permission-message: &noperms "\u00A7cYou do not have permission to use this command."
+
+commands:
+  unbound-combat-admin:
+    description: Admin-only commands for the Unbound Combat plugin
+    usage: *usage
+    aliases: [ucadmin]
+    permission: unbound.combat.admin
+    permission-message: *noperms
+  unbound-combat:
+    description: General commands for the Unbound Combat plugin
+    usage: *usage
+    aliases: [uc]
+permissions:
+  unbound.combat.all:
+    description: All Unbound Combat permissions
+    default: false
+    children:
+      unbound.combat.admin: true
+  unbound.combat.admin:
+    description: Allows you to access admin-only commands for Unbound Combat
+    default: op
