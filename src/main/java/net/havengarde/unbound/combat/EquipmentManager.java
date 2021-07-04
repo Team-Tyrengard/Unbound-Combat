@@ -146,7 +146,7 @@ public class EquipmentManager extends AManager<UnboundCombat> implements Listene
             if (itemStack != null && itemShouldHaveUCItemData(itemStack) && !itemHasUCItemData(itemStack))
                 attachUCItemDataToItem(getDefaultUCItemDataForItem(itemStack), itemStack);
 
-            equipmentHolder.getEquipment().update(e.getSlot());
+            equipmentHolder.getEquipment().update(e.getSlot(), itemStack);
         }
     }
     // endregion

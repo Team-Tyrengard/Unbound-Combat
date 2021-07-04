@@ -28,39 +28,28 @@ public final class UCEquipment implements CombatStatProvider {
     }
 
     public void updateAll() {
-        update(EquipmentSlot.HAND);
-        update(EquipmentSlot.OFF_HAND);
-        update(EquipmentSlot.HEAD);
-        update(EquipmentSlot.CHEST);
-        update(EquipmentSlot.LEGS);
-        update(EquipmentSlot.FEET);
-    }
-
-    public void update(EquipmentSlot slot) {
-        ItemStack itemStack = null;
-
         if (owner instanceof Player pAttacker) {
             PlayerInventory pi = pAttacker.getInventory();
-            itemStack = switch (slot) {
-                case HAND -> pi.getItemInMainHand();
-                case OFF_HAND -> pi.getItemInOffHand();
-                case FEET -> pi.getBoots();
-                case LEGS -> pi.getLeggings();
-                case CHEST -> pi.getChestplate();
-                case HEAD -> pi.getHelmet();
-            };
+            update(EquipmentSlot.HAND, pi.getItemInMainHand());
+            update(EquipmentSlot.OFF_HAND, pi.getItemInOffHand());
+            update(EquipmentSlot.HEAD, pi.getHelmet());
+            update(EquipmentSlot.CHEST, pi.getChestplate());
+            update(EquipmentSlot.LEGS, pi.getLeggings());
+            update(EquipmentSlot.FEET, pi.getBoots());
         } else if (owner instanceof LivingEntity leAttacker) {
             EntityEquipment ee = leAttacker.getEquipment();
-            if (ee != null) itemStack = switch (slot) {
-                case HAND -> ee.getItemInMainHand();
-                case OFF_HAND -> ee.getItemInOffHand();
-                case FEET -> ee.getBoots();
-                case LEGS -> ee.getLeggings();
-                case CHEST -> ee.getChestplate();
-                case HEAD -> ee.getHelmet();
-            };
+            if (ee != null) {
+                update(EquipmentSlot.HAND, ee.getItemInMainHand());
+                update(EquipmentSlot.OFF_HAND, ee.getItemInOffHand());
+                update(EquipmentSlot.HEAD, ee.getHelmet());
+                update(EquipmentSlot.CHEST, ee.getChestplate());
+                update(EquipmentSlot.LEGS, ee.getLeggings());
+                update(EquipmentSlot.FEET, ee.getBoots());
+            }
         }
+    }
 
+    public void update(EquipmentSlot slot, ItemStack itemStack) {
         UCItemData ucItemData = itemStack == null ? null : getUCItemDataFromItemStack(itemStack);
         equipmentItemData.remove(slot);
         if (ucItemData != null)

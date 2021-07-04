@@ -367,7 +367,7 @@ public final class CombatEngine extends AManager<UnboundCombat> implements Liste
             }
 
             double damage = e.getDamage();
-            final Location loc = damagee.getLocation();
+            final Location loc = ((LivingEntity) damagee).getEyeLocation();
             DamageIndicator di = switch (outcome) {
                 case FAILED_BLOCKED -> new DamageIndicator(loc, ChatFormat.color(ChatColor.DARK_GRAY, "BLOCKED!"));
                 case FAILED_EVADED -> new DamageIndicator(loc, ChatFormat.color(ChatColor.GRAY, "DODGED!"));
