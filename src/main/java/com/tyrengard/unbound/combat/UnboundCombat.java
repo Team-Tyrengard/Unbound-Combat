@@ -1,6 +1,6 @@
 package com.tyrengard.unbound.combat;
 
-import com.tyrengard.aureycore.damageindicator.DamageIndicatorAPI;
+import com.tyrengard.unbound.combat.damageindicator.DamageIndicatorAPI;
 import com.tyrengard.aureycore.foundation.AManagedPlugin;
 import org.bukkit.configuration.InvalidConfigurationException;
 

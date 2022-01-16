@@ -2,8 +2,8 @@ package com.tyrengard.unbound.combat;
 
 import com.tyrengard.aureycore.foundation.common.stringformat.ChatFormat;
 import com.tyrengard.aureycore.foundation.common.utils.TaskUtils;
-import com.tyrengard.aureycore.damageindicator.DamageIndicator;
-import com.tyrengard.aureycore.damageindicator.DamageIndicatorAPI;
+import com.tyrengard.unbound.combat.damageindicator.DamageIndicator;
+import com.tyrengard.unbound.combat.damageindicator.DamageIndicatorAPI;
 import com.tyrengard.aureycore.foundation.AManager;
 import com.tyrengard.aureycore.foundation.Configured;
 import com.tyrengard.magicksapi.MagicksAPI;

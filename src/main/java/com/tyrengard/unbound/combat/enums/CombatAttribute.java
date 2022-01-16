@@ -1,6 +1,5 @@
 package com.tyrengard.unbound.combat.enums;
 
-import com.tyrengard.aureycore.foundation.common.interfaces.TriConsumer;
 import com.tyrengard.aureycore.foundation.common.stringformat.ChatFormat;
 import com.tyrengard.aureycore.foundation.common.utils.ItemUtils;
 import com.tyrengard.aureycore.foundation.common.utils.NumberUtils;
