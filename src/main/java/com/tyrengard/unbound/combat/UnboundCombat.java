@@ -16,7 +16,7 @@ public final class UnboundCombat extends AManagedPlugin {
         this.addManager(new EquipmentManager(this));
         this.registerListener(new UCEventListener());
 
-        DamageIndicatorAPI.useDefaultDamageIndicators(false);
+        DamageIndicatorAPI.start(this, false);
 
 //        this.addCommandExecutor("attackspeed", (sender, command, label, args) -> {
 //            // TODO: "/attackspeed help" should explain how attackspeed works and what the number means
