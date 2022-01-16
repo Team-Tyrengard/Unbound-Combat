@@ -1,7 +1,7 @@
 name: UnboundCombat
 version: 1.0.1
-main: net.havengarde.unbound.combat.UnboundCombat
-api-version: 1.16
+main: com.tyrengard.unbound.combat.UnboundCombat
+api-version: 1.17
 prefix: UnboundCombat
 depend: [ Aureycore, MagicksAPI ]
 authors: [ hayachikin, AureanAutumn ]
