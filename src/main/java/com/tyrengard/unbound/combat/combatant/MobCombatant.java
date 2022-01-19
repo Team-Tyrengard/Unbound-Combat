@@ -1,27 +1,32 @@
 package com.tyrengard.unbound.combat.combatant;
 
-import com.tyrengard.unbound.combat.equipment.UCEquipment;
-import com.tyrengard.unbound.combat.equipment.UCEquipmentHolder;
+import com.tyrengard.unbound.combat.equipment.Equipment;
+import com.tyrengard.unbound.combat.equipment.EquipmentHolder;
+import com.tyrengard.unbound.combat.stats.CombatStat;
 import org.bukkit.entity.Mob;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public abstract class MobCombatant extends Combatant<Mob> implements UCEquipmentHolder {
-    protected transient UCEquipment equipment = null;
+/**
+ * Represents a {@link Mob} in combat, with {@link CombatStat}s and {@link Equipment}.<br />
+ * All mobs in combat are represented by this class or a subclass of it.
+ */
+public abstract class MobCombatant extends Combatant<Mob> implements EquipmentHolder {
+    protected transient Equipment equipment = null;
     protected MobCombatant(UUID id) {
         super(id);
     }
 
     @Override
-    public void setEquipment(UCEquipment equipment) {
+    public void setEquipment(@NotNull Equipment equipment) {
         this.equipment = equipment;
     }
 
     @Override
-    public @NotNull UCEquipment getEquipment() {
+    public @NotNull Equipment getEquipment() {
         if (equipment == null)
-            equipment = new UCEquipment(getEntity());
+            equipment = new Equipment(getEntity());
         return equipment;
     }
 }

@@ -1,11 +1,2 @@
 combat:
   max-seconds-in-combat: 10
-
-conduit-db:
-  type: mysql
-  name: unbound
-  url:  localhost
-  port: 3306
-  username: root
-  password: password
-  dev-mode: true

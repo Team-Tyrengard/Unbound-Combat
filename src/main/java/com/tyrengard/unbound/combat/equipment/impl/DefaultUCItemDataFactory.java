@@ -1,18 +1,20 @@
 package com.tyrengard.unbound.combat.equipment.impl;
 
 import com.tyrengard.unbound.combat.equipment.EquipmentType;
-import com.tyrengard.unbound.combat.equipment.UCItemData;
+import com.tyrengard.unbound.combat.equipment.CombatItemData;
 import com.tyrengard.unbound.combat.equipment.UCItemDataFactory;
 import com.tyrengard.unbound.combat.stats.CombatStat;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class DefaultUCItemDataFactory implements UCItemDataFactory {
     @Override
-    public UCItemData from(ItemStack itemStack) {
+    public CombatItemData from(ItemStack itemStack) {
         if (itemStack == null)
             return null;
 
@@ -21,7 +23,7 @@ public class DefaultUCItemDataFactory implements UCItemDataFactory {
             return null;
 
         Material m = itemStack.getType();
-        Hashtable<CombatStat, Double> combatStats = new Hashtable<>();
+        HashMap<CombatStat, Double> combatStats = new HashMap<>();
         addValueForStat(combatStats, CombatStat.MELEE_DAMAGE, switch (m) {
             case WOODEN_SWORD, GOLDEN_SWORD -> 4.0;
             case STONE_SWORD, WOODEN_AXE, GOLDEN_AXE -> 5.0;
@@ -89,16 +91,16 @@ public class DefaultUCItemDataFactory implements UCItemDataFactory {
                 int level = itemStack.getEnchantmentLevel(enchantment);
                 addStatValueForVanillaEnchantment(combatStats, enchantment, level);
             }
-            return new UCItemData(type, combatStats);
+            return new CombatItemData(type, combatStats);
         }
     }
 
-    private void addValueForStat(Hashtable<CombatStat, Double> combatStats, CombatStat stat, Double value) {
+    private void addValueForStat(Map<CombatStat, Double> combatStats, CombatStat stat, Double value) {
         if (value != null)
             combatStats.put(stat, value);
     }
 
-    private void addStatValueForVanillaEnchantment(Hashtable<CombatStat, Double> combatStats, Enchantment enchantment, int level) {
+    private void addStatValueForVanillaEnchantment(Map<CombatStat, Double> combatStats, Enchantment enchantment, int level) {
         if (Enchantment.DAMAGE_ALL.equals(enchantment)) {
             double meleeDamage = (0.5 * level) + 0.5;
             combatStats.compute(CombatStat.MELEE_DAMAGE, (k, v) -> v == null ? meleeDamage : v + meleeDamage);

@@ -1,50 +1,47 @@
 package com.tyrengard.unbound.combat.combatant;
 
-import com.tyrengard.unbound.combat.resistance.ResistanceSource;
+import com.tyrengard.unbound.combat.damage.ResistanceSource;
 import dev.morphia.annotations.Id;
-import com.tyrengard.magicksapi.SkillUser;
 import com.tyrengard.unbound.combat.damage.DamageSource;
 import com.tyrengard.unbound.combat.stats.CombatStat;
 import com.tyrengard.unbound.combat.effects.CombatEffect;
-import com.tyrengard.unbound.combat.combatant.skills.UCSkill;
 import com.tyrengard.unbound.combat.stats.CombatStatHolder;
 import org.bukkit.attribute.Attributable;
 import org.bukkit.entity.Entity;
 
 import java.util.*;
 
-@dev.morphia.annotations.Entity
-public abstract class Combatant<E extends Entity> extends SkillUser implements CombatStatHolder, DamageSource, ResistanceSource {
+/**
+ * Represents an {@link Entity} in combat, with {@link CombatStat}s.<br />
+ * All entities in combat will be represented with this class or a subclass of it.
+ * For specifically representing players, {@link PlayerCombatant} will be used.
+ * @param <E> an {@code Entity}
+ */
+public abstract class Combatant<E extends Entity> implements CombatStatHolder, DamageSource, ResistanceSource {
     @Id
     protected final UUID id;
 
     protected final transient Hashtable<CombatStat, Double> combatStats = new Hashtable<>();
 
-    protected final SkillMatrix skillMatrix = new SkillMatrix();
-    protected final transient HashSet<UCSkill> activeSkills = new HashSet<>();
-    protected transient boolean charged = false;
-
+    // Attack cooldown
     protected transient long lastAttackTicks = 0;
 
     // region Buffs/debuffs
     protected final transient Hashtable<String, CombatEffect>
             buffs = new Hashtable<>(),
             debuffs = new Hashtable<>();
-    // endregion
 
     protected Combatant(UUID id) {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return id.toString();
     }
-
-    @Override
-    public UUID getId() {
+    public final UUID getId() {
         return id;
     }
+    // endregion
 
     @Override
     public boolean equals(Object o) {
@@ -63,15 +60,6 @@ public abstract class Combatant<E extends Entity> extends SkillUser implements C
     public double getValueForStat(CombatStat stat) {
         return combatStats.getOrDefault(stat, 0.0);
     }
-    public SkillMatrix getSkillMatrix() { return skillMatrix; }
-    public Collection<UCSkill> getSkills() { return new HashSet<>(skillMatrix.keySet()); }
-    public double getCooldownForSkill(UCSkill skill) {
-        return getCooldownTicksForSkill(skill) / 20.0;
-    }
-    public HashSet<UCSkill> getActiveSkills() { return new HashSet<>(activeSkills); }
-    public boolean isCharged() {
-        return charged;
-    }
     // endregion
 
     // region Setters
@@ -87,19 +75,6 @@ public abstract class Combatant<E extends Entity> extends SkillUser implements C
             if (v != null) return v + value;
             else return value;
         });
-    }
-    public void activateSkill(UCSkill skill) {
-        activeSkills.add(skill);
-        assignSkill(skill, skill.getCastEvents());
-    }
-    public void clearActiveSkills() {
-        for (UCSkill skill : activeSkills)
-            unassignSkill(skill);
-        activeSkills.clear();
-        charged = false;
-    }
-    public void setCharged(boolean charged) {
-        this.charged = charged;
     }
     // endregion
 
@@ -142,9 +117,9 @@ public abstract class Combatant<E extends Entity> extends SkillUser implements C
     }
     // endregion
 
-    public boolean performAttack(long ticks) {
-        if (ticks >= lastAttackTicks + (20 / getValueForStat(CombatStat.SWING_SPEED))) {
-            lastAttackTicks = ticks;
+    public boolean performAttack(long currentTicks) {
+        if (currentTicks >= lastAttackTicks + (20 / getValueForStat(CombatStat.SWING_SPEED))) {
+            lastAttackTicks = currentTicks;
             return true;
         } else return false;
     }
@@ -152,4 +127,14 @@ public abstract class Combatant<E extends Entity> extends SkillUser implements C
     // region Abstract methods
     public abstract E getEntity();
     // endregion
+
+    @Override
+    public String getDamageSourceName() {
+        return "stats";
+    }
+
+    @Override
+    public int getDamageSourceOrder() {
+        return 0;
+    }
 }

@@ -1,18 +1,25 @@
 package com.tyrengard.unbound.combat.combatant;
 
-import com.tyrengard.unbound.combat.equipment.UCEquipment;
-import com.tyrengard.unbound.combat.equipment.UCEquipmentHolder;
+import com.tyrengard.unbound.combat.equipment.Equipment;
+import com.tyrengard.unbound.combat.attributes.CombatAttribute;
+import com.tyrengard.unbound.combat.equipment.EquipmentHolder;
 import com.tyrengard.unbound.combat.log.CombatLog;
 import com.tyrengard.unbound.combat.log.CombatLogHolder;
+import com.tyrengard.unbound.combat.stats.CombatStat;
+import com.tyrengard.unbound.combat.skills.CombatSkill;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public abstract class PlayerCombatant extends AttributedCombatant<Player> implements UCEquipmentHolder, CombatLogHolder {
+/**
+ * Represents a {@link Player} in combat, with {@link CombatStat}s, {@link Equipment}, and {@link CombatAttribute}s.
+ */
+public abstract class PlayerCombatant extends AttributedCombatant<Player> implements EquipmentHolder, CombatLogHolder {
     protected final TreeSet<CombatLog> combatLogs = new TreeSet<>();
-    protected transient UCEquipment equipment = null;
+    protected transient Equipment equipment = null;
+
     protected PlayerCombatant(UUID id) {
         super(id);
     }
@@ -23,14 +30,14 @@ public abstract class PlayerCombatant extends AttributedCombatant<Player> implem
     }
 
     @Override
-    public void setEquipment(UCEquipment equipment) {
+    public void setEquipment(@NotNull Equipment equipment) {
         this.equipment = equipment;
     }
 
     @Override
-    public @NotNull UCEquipment getEquipment() {
+    public @NotNull Equipment getEquipment() {
         if (equipment == null)
-            setEquipment(new UCEquipment(getEntity()));
+            setEquipment(new Equipment(getEntity()));
         return equipment;
     }
 

@@ -1,7 +1,8 @@
 package com.tyrengard.unbound.combat;
 
-import com.tyrengard.unbound.combat.damageindicator.DamageIndicatorAPI;
+import com.tyrengard.unbound.combat.managers.EquipmentManager;
 import com.tyrengard.aureycore.foundation.AManagedPlugin;
+import com.tyrengard.unbound.combat.party.PartyManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 
 public final class UnboundCombat extends AManagedPlugin {
@@ -14,16 +15,13 @@ public final class UnboundCombat extends AManagedPlugin {
 
         this.addManager(new CombatEngine(this));
         this.addManager(new EquipmentManager(this));
-        this.registerListener(new UCEventListener());
+        this.addManager(new PartyManager(this));
 
-        DamageIndicatorAPI.start(this, false);
+//        DamageIndicatorAPI.start(this, false);
 
-//        this.addCommandExecutor("attackspeed", (sender, command, label, args) -> {
-//            // TODO: "/attackspeed help" should explain how attackspeed works and what the number means
-//            if (sender instanceof Player p) {
-//                p.sendMessage("Attack speed (melee): " + CombatEngine.getCombatant(p).getValueForStat(CombatStat.SWING_SPEED));
-//            } else sender.sendMessage("This command is only for players.");
-//
+//        this.addCommandExecutor("test", (sender, command, label, args) -> {
+//            Player player = (Player) sender;
+//            DamageIndicatorAPI.showIndicator(player, "TEST", player.getLocation(), new Vector(0, 0.2, 0), false, player.getHeight());
 //            return true;
 //        });
 //        this.addCommandExecutor("movespeed", (sender, command, label, args) -> {

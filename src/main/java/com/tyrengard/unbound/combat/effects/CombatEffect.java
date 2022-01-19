@@ -1,21 +1,28 @@
 package com.tyrengard.unbound.combat.effects;
 
+import com.tyrengard.unbound.combat.CombatInstance;
 import org.bukkit.entity.Entity;
 
 import java.util.Objects;
 
+/**
+ * Represents an effect applied in combat.<br />
+ * {@code CombatEffect}s can stack, tick down, expire, and/or resolve an effect on combat.
+ */
 public abstract class CombatEffect {
     protected final String name;
     protected final Entity source;
+    protected final CombatEffectType type;
     protected final ExpiryBehavior expiryBehavior;
     protected final long seconds;
     protected long currentSeconds = 0;
     protected final int maximumStacks;
     protected int stacks;
 
-    protected CombatEffect(String name, Entity source, ExpiryBehavior expiryBehavior, int seconds, int maximumStacks, int initialStacks) {
+    protected CombatEffect(String name, Entity source, CombatEffectType type, ExpiryBehavior expiryBehavior, int seconds, int maximumStacks, int initialStacks) {
         this.name = name;
         this.source = source;
+        this.type = type;
         this.expiryBehavior = expiryBehavior;
         this.seconds = seconds;
         this.maximumStacks = maximumStacks;
@@ -33,6 +40,8 @@ public abstract class CombatEffect {
     public ExpiryBehavior getExpiryBehavior() {
         return expiryBehavior;
     }
+
+    public CombatEffectType getType() { return type; }
 
     public int getMaximumStacks() {
         return maximumStacks;
@@ -69,6 +78,7 @@ public abstract class CombatEffect {
     public void onTick(Entity target) {}
     public void onExpire(Entity target) {}
     public void applyToEntity(Entity target) {}
+    public void resolve(CombatInstance combatInstance) {}
 
     @Override
     public boolean equals(Object o) {
@@ -84,7 +94,14 @@ public abstract class CombatEffect {
     }
 
     public enum ExpiryBehavior {
+        /**
+         * Retains its full stack count until it expires.
+         */
         FULL,
+
+        /**
+         * Stacks reduce by 1 per tick until it expires.
+         */
         DIMINISHING
     }
 }

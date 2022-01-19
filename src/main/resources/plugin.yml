@@ -3,7 +3,8 @@ version: 1.0
 main: com.tyrengard.unbound.combat.UnboundCombat
 api-version: 1.17
 prefix: UnboundCombat
-depend: [ Aureycore, MagicksAPI ]
+depend: [ Aureycore, ProtocolLib ]
+softdepend: [ MagicksAPI ]
 authors: [ hayachikin, AureanAutumn ]
 description: Extensible combat engine and combat API
 website: combat.unbound.tyrengard.com
@@ -11,6 +12,12 @@ usage: &usage "\u00A7cWrong syntax. Use /<command> help to show proper usage."
 permission-message: &noperms "\u00A7cYou do not have permission to use this command."
 
 commands:
+  test:
+    description: Test command
+    usage: *usage
+    aliases: [ucadmin]
+    permission: unbound.combat.admin
+    permission-message: *noperms
   unbound-combat-admin:
     description: Admin-only commands for the Unbound Combat plugin
     usage: *usage

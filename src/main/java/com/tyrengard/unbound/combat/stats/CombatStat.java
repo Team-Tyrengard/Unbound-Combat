@@ -7,8 +7,22 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 
 public enum CombatStat {
-    MELEE_DAMAGE, WEAPON_WEIGHT,                // Strength
-    SWING_SPEED, MOVEMENT_SPEED, EVASION,       // Agility
+    /**
+     * Damage dealt from melee hits.
+     */
+    MELEE_DAMAGE,
+    /**
+     * Weight of a weapon.<br />
+     * For combatants, this represents the total weapon weight they can use in combat.<br />
+     * For combat items, this represents the weight of the weapon.
+     */
+    WEAPON_WEIGHT,
+    SWING_SPEED, MOVEMENT_SPEED,
+
+    /**
+     * Chance to evade attacks and spells.
+     */
+    EVASION,       // Agility
     WEAPON_COMPLEXITY, CAST_SPEED, ACCURACY,    // Dexterity
     HEALTH, ARMOR_WEIGHT, PHYSICAL_RESISTANCE,  // Constitution
     CRITICAL_CHANCE, RANGED_DAMAGE,             // Perception

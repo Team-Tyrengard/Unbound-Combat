@@ -14,20 +14,23 @@ This is a project that was started in 2019, and later became the flagship plugin
    
 3. **Combat logs** - 
    We store a history of combat for each player, and they can brag about it in global chat! See the details of your most recent battles, including how much damage you dodged, and how many times you hit those sweet 150% damage crits!
-   
-4. **Party system** - 
+
+4. **Party system** -
    Do you find it lonely adventuring alone, but your friends keep taking the best loot and all the experience? Introducing the party system! You can set BOTH items and experience to be shared across the team! No more salty dungeon raids!
+
+5. **GUI-based commands** -
+   All our commands are completely GUI-based and intuitive! Get the full MMORPG experience!
    
-5. **Support for combat skills** (with MagicksAPI) - 
+6. **Support for combat skills** (with MagicksAPI) - 
    If you install [MagicksAPI](https://github.com/Team-Tyrengard/MagicksAPI) and a compatible combat skills plugin (or [write one, it's not that hard](https://github.com/Team-Tyrengard/MagicksAPI/wiki)), you can use MagicksAPI's casting system to spice up PvP and PvE. We even have combat stats (mana, mana regen, spell potency, etc.) and combat attributes (Intellect and Wisdom) that specifically augment this.
    
-6. **Combat equipment system** (with Unbound Combat Gear) - 
+7. **Combat equipment system** (with Unbound Combat Gear) - 
    With Unbound Combat Gear, you can hook into the combat engine and create items with innate combat stats and skills. Create your dream "max evasion" full armor set!
    
-7. **Custom mob support** (with Unbound Combat Mobs) - 
+8. **Custom mob support** (with Unbound Combat Mobs) - 
    You can create custom mobs with jacked combat stats in Unbound Combat Mobs, give them OP abilities, and watch your players suffer! Or make fair and engaging mobs. Your choice, really.
    
-8. **An API for everything we just mentioned** - 
+9. **An API for everything we just mentioned** - 
    Want to write your own custom mob plugin and have compatible with Unbound Combat? Or maybe you already have one and are looking to make use of Unbound Combat's overhauled combat engine? Guess what: you can! Unbound Combat fires custom events for the beginning and end of every combat, and for each instance of damage. You can customize each step of the damage calculation to your heart's content! You can even make your own skills plugin or custom item plugin compatible with Unbound Combat. Hooray for APIs!
 
 ## Supported versions
